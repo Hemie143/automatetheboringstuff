@@ -30,3 +30,24 @@ mo1 = heroRegex.search('Batman and Tina Fey')
 print(mo1.group())      # Batman
 mo2 = heroRegex.search('Tina Fey and Batman')
 print(mo2.group())      # Tina Fey
+
+batRegex = re.compile(r'Bat(man|mobile|copter|bat)')
+mo = batRegex.search('Batmobile lost a wheel')
+print(mo.group())       # Batmobile
+print(mo.group(1))      # mobile
+
+# Optional matching with the question mark
+batRegex = re.compile(r'Bat(wo)?man')           # 0 or 1
+mo1 = batRegex.search('The Adventures of Batman')
+print(mo1.group())      # Batman
+mo2 = batRegex.search('The Adventures of Batwoman')
+print(mo2.group())      # Batwoman
+
+# Matching zero or more with the star
+batRegex = re.compile(r'Bat(wo)*man')           # 0 or 1
+mo1 = batRegex.search('The Adventures of Batman')
+print(mo1.group())      # Batman
+mo2 = batRegex.search('The Adventures of Batwoman')
+print(mo2.group())      # Batwoman
+mo3 = batRegex.search('The Adventures of Batwowowowoman')
+print(mo3.group())      # Batwowowowoman
