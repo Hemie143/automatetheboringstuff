@@ -121,3 +121,18 @@ print(wholeStringIsNum.search('12345xyz67890') == None)     # True
 print(wholeStringIsNum.search('12  34567890') == None)      # True
 
 # The wildcard character
+atRegex = re.compile(r'.at')
+print(atRegex.findall('The cat in the hat sat on the flat mat.'))       # ['cat', 'hat', 'sat', 'lat', 'mat']
+
+# Matching everything with dot-star
+nameRegex = re.compile(r'First Name: (.*) Last Name: (.*)')
+mo = nameRegex.search('First Name: Al Last Name: Sweigart')
+print(mo.group(1))                                          # Al
+print(mo.group(2))                                          # Sweigart
+
+nongreedyRegex = re.compile(r'<.*?>')                       # Non-greedy
+mo = nongreedyRegex.search('<To serve man> for dinner.>')
+print(mo.group())                                           # <To serve man>
+greedyRegex = re.compile(r'<.*>')                           # Non-greedy
+mo = greedyRegex.search('<To serve man> for dinner.>')
+print(mo.group())                                           # <To serve man> for dinner.>
