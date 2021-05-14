@@ -136,3 +136,59 @@ print(mo.group())                                           # <To serve man>
 greedyRegex = re.compile(r'<.*>')                           # Non-greedy
 mo = greedyRegex.search('<To serve man> for dinner.>')
 print(mo.group())                                           # <To serve man> for dinner.>
+
+# Matching newlines with the dot character
+noNewlineRegex = re.compile('.*')
+x = noNewlineRegex.search('Serve the public trust.\nProtect the innocent.nUphold the law.').group()
+print(x)                                                    # Serve the public trust.
+
+newlineRegex = re.compile('.*', re.DOTALL)
+x = newlineRegex.search('Serve the public trust.\nProtect the innocent.\nUphold the law.').group()
+print(x)                                                    # Serve the public trust.\nProtect the innocent.\nUphold the law.
+
+# Review of Regex Symbols
+'''
+The ? matches zero or one of the preceding group.
+The * matches zero or more of the preceding group.
+The + matches one or more of the preceding group.
+The {n} matches exactly n of the preceding group.
+The {n,} matches n or more of the preceding group.
+The {,m} matches 0 to m of the preceding group.
+The {n,m} matches at least n and at most m of the preceding group.
+{n,m}? or *? or +? performs a non-greedy match of the preceding group.
+^spam means the string must begin with spam.
+spam$ means the string must end with spam.
+The . matches any character, except newline characters.
+\d, \w, and \s match a digit, word, or space character, respectively.
+\D, \W, and \S match anything except a digit, word, or space character, respectively.
+[abc] matches any character between the brackets (such as a, b, or c).
+[^abc] matches any character that isn’t between the brackets.
+'''
+
+# Case-insensitive matching
+robocop = re.compile(r'robocop', re.I)
+print(robocop.search('RoboCop is part man, part machhine, all cop.').group())                       # RoboCop
+print(robocop.search('ROBOCOP protects the innocent.').group())                                     # ROBOCOP
+print(robocop.search('Al, why does your programming book talk about robocop so much?').group())     # robocop
+
+# Substituting Strings with the sub() Method
+namesRegex = re.compile(r'Agent \w+')
+print(namesRegex.sub('CENSORED', 'Agent Alice gave the secret documents to Agent Bob.'))        # CENSORED gave the secret documents to CENSORED.
+
+agentNamesRegex = re.compile(r'Agent (\w)\w*')
+print(agentNamesRegex.sub(r'\1****', 'Agent Alice told Agent Carol that Agent Eve knew Agent Bob was a double agent.'))
+# A**** told C**** that E**** knew B**** was a double agent.
+
+# Managing Complex Regexes
+phoneRegex = re.compile(r'''(
+    (\d{3}|\(\d{3}\))?            # area code
+    (\s|-|\.)?                    # separator
+    \d{3}                         # first 3 digits
+    (\s|-|\.)                     # separator
+    \d{4}                         # last 4 digits
+    (\s*(ext|x|ext.)\s*\d{2,5})?  # extension
+    )''', re.VERBOSE)
+
+# Combining re.IGNORECASE, re.DOTALL, and re.VERBOSE
+someRegexValue = re.compile('foo', re.IGNORECASE | re.DOTALL)
+someRegexValue = re.compile('foo', re.IGNORECASE | re.DOTALL | re.VERBOSE)
