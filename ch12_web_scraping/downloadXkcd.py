@@ -1,5 +1,5 @@
 #! python3
-# downloadXkcd.py - downloads evert single XKCD comic
+# threadedDownloadXkcd.py - downloads evert single XKCD comic
 
 import requests
 import os
